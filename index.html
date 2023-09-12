@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indentation Converter</title>
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: calc(100vh - 2rem);
+}
+main {
+    width: 100%;
+    /* padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    /* height: calc(100vh - 100px); Subtracting space for header and button */
+}
+
+textarea {
+    width: 50%;
+    flex: 1;
+    box-sizing: border-box; /* This ensures that padding and border are included in the element's total width and height */
+    resize: none;
+}
+
+button {
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <main>
+
+        <h2>Convert Indentation from 4 spaces to 2 spaces</h2>
+        <div class="container">
+            <textarea id="input" placeholder="Paste your code here..."></textarea>
+            <textarea id="output" readonly></textarea>
+        </div>
+        <button onclick="convertIndentation()">Convert</button>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+       function convertIndentation() {
+    const inputText = document.getElementById('input').value;
+    const outputText = inputText.split('\n').map(convertIndent4to2).join('\n');
+    document.getElementById('output').value = outputText;
+}
+
+function convertIndent4to2(line) {
+    const leadingSpaces = /^\s*/.exec(line)[0];
+    const newLeadingSpaces = leadingSpaces.replace(/[ ]{4}/g, '  ');
+    return newLeadingSpaces + line.replace(/^\s+/, '');
+}
+
+    </script>
+    
+</body>
+</html>
